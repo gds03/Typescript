@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import { inject, injectable } from "inversify";
-import { ILogger } from "./interfaces";
-import { container } from "./container";
+import { ILogger } from "./infrastructure/loggers";
+import { container } from "./dependency-injection";
 
 @injectable()
 class App {
