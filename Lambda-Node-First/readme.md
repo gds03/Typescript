@@ -19,7 +19,8 @@ aws lambda update-function-code \
 
 
 # invoke lambda
-aws lambda invoke --function-name LambdaNodeFirst output.json && cat output.json
+aws lambda invoke --function-name LambdaNodeFirst --payload '{"queryStringParameters":{"city":"Lisbon, PT"}}' --cli-binary-format raw-in-base64-out  output && cat output
+
 
 
 #
