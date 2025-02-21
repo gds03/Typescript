@@ -1,5 +1,6 @@
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
 import axios from "axios";
+import { IConfiguration } from "../../infrastructure/configuration";
 
 // OpenWeatherMap API URL and key (replace with your actual API key)
 const API_KEY = "229ad6e466f8934e10e9792e73f6992c";
@@ -11,13 +12,16 @@ export interface IGetWeatherHttpClient {
 
 @injectable()
 export class GetWeatherHttpClient implements IGetWeatherHttpClient {
+    constructor(@inject("IConfiguration") private readonly _configuration: IConfiguration )
+{}
+    
     async getWeather(city: string): Promise<string> {
         try {
             // Make a GET request to the weather API
             const response = await axios.get(BASE_URL, {
                 params: {
                     q: city,
-                    appid: API_KEY,
+                    appid: this._configuration.OpenWeatherApiKey,
                     units: "metric"
                 },
             });

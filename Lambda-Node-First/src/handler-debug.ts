@@ -1,5 +1,10 @@
 import * as lambdaLocal from "lambda-local";
 
+var config = require('dotenv').config();
+if(config.error)
+{
+    throw config.error;
+}
 var lambda = require("./handler");
 
 const payload = {
@@ -19,9 +24,12 @@ lambdaLocal
         lambdaFunc: lambda,
         lambdaHandler: "handler",
         event: payload,
-        timeoutMs: 8000
-    }).then((result) => {
+        timeoutMs: 8000,
+        environment: config
+    })
+    .then((result) => {
         console.log("Lambda response:", result);
-    }).catch((error) => {
+    })
+    .catch((error) => {
         console.error("Lambda error:", error);
     });
