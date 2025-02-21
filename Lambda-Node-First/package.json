@@ -3,17 +3,22 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "zip": "rm -f lambda-function.zip && 7z a -tzip ./publish/lambda-function.zip ./dist/* ./node_modules/* && cd ..",
+    "deploy": "npm run build && npm run zip"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "aws-sdk": "^2.1692.0",
+    "axios": "^1.7.9",
     "inversify": "^6.2.2",
     "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.147",
     "@types/node": "^22.13.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
