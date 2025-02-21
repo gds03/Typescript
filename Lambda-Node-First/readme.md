@@ -3,14 +3,20 @@
 #
 
 # deploy to lambda
-aws lambda create-function --function-name LambdaNodeFirst \
+aws lambda create-function  \
+  --function-name LambdaNodeFirst \
   --runtime nodejs18.x \
   --role arn:aws:iam::831926608382:role/LambdaNodeFirstRole \
   --handler index.handler \
+  --environment "Variables={OPEN_WEATHER_API_KEY=`your-secret-key`}"
   --zip-file fileb://publish/lambda-function.zip
 
 # update lambda
-aws lambda update-function-code --function-name LambdaNodeFirst --zip-file fileb://publish/lambda-function.zip
+aws lambda update-function-code \
+  --function-name LambdaNodeFirst \
+  --zip-file fileb://publish/lambda-function.zip \
+  --environment Variables={OPEN_WEATHER_API_KEY=`your-secret-key`}
+
 
 # invoke lambda
 aws lambda invoke --function-name LambdaNodeFirst output.json && cat output.json
