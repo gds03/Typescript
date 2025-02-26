@@ -22,6 +22,18 @@ aws lambda update-function-code \
 aws lambda invoke --function-name LambdaNodeFirst --payload '{"queryStringParameters":{"city":"Lisbon, PT"}}' --cli-binary-format raw-in-base64-out  output && cat output
 
 
+# debug lambda
+export AWS_PROFILE=default \
+&& aws sts assume-role --role-arn "arn:aws:iam::831926608382:role/LambdaNodeFirstRole" --role-session-name "LocalDebugSession" --query 'Credentials' --output json > temp-creds.json \
+&& aws configure set aws_access_key_id $(jq -r '.AccessKeyId' temp-creds.json) --profile lambda-node-first-profile \
+&& aws configure set aws_secret_access_key $(jq -r '.SecretAccessKey' temp-creds.json) --profile lambda-node-first-profile \
+&& aws configure set aws_session_token $(jq -r '.SessionToken' temp-creds.json) --profile lambda-node-first-profile \
+&& rm temp-creds.json \
+&& aws sts get-caller-identity \
+&& export AWS_REGION=eu-west-1 \
+&& export AWS_PROFILE=lambda-node-first-profile \
+&& aws dynamodb list-tables \
+&& aws dynamodb scan --table-name Lambda-Node-First-Table
 
 #
 # Run and Deploy

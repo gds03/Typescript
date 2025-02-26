@@ -1,11 +1,11 @@
 import * as lambdaLocal from "lambda-local";
 
-var config = require('dotenv').config();
+const config = require('dotenv').config();
 if(config.error)
 {
     throw config.error;
 }
-var lambda = require("./handler");
+const lambda = require("./handler");
 
 const payload = {
     "resource": "/",
@@ -15,7 +15,9 @@ const payload = {
         "Accept": "application/json"
     },
     "queryStringParameters": {
-        "city": "Dublin, IE"
+        "username": "tania",
+        "city": "Lisbon, PT",
+        "cacheSeconds": 60
     }
 };
 
@@ -23,8 +25,9 @@ lambdaLocal
     .execute({
         lambdaFunc: lambda,
         lambdaHandler: "handler",
+        profileName: 'lambda-node-first-profile',
         event: payload,
-        timeoutMs: 8000,
+        timeoutMs: 120 * 1000,
         environment: config
     })
     .then((result) => {
