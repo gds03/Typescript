@@ -57,12 +57,7 @@ export class GetWeatherHandler implements IGetWeatherHandler {
       console.log(`Weather for ${request.username} was restored from the cache`);
     }
 
-    return `Weather in ${request.city}: 
-      Feel like ${dbEntry.feelLike}ºC
-      Temperature ${dbEntry.temp}ºC
-      Humidity ${dbEntry.humidity} %
-      Wind ${dbEntry.wind} meter/sec
-  `;
+    return `Weather in ${request.city}: Feel like ${dbEntry.feelLike}ºC, Temperature ${dbEntry.temp}ºC, Humidity ${dbEntry.humidity}%, Wind ${dbEntry.wind} meter/sec`;
   }
 }
 

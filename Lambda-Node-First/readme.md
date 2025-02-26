@@ -7,15 +7,20 @@ aws lambda create-function  \
   --function-name LambdaNodeFirst \
   --runtime nodejs18.x \
   --role arn:aws:iam::831926608382:role/LambdaNodeFirstRole \
-  --handler index.handler \
-  --environment "Variables={OPEN_WEATHER_API_KEY=`your-secret-key`}"
+  --handler function-handler.handler \
+  --environment "Variables={OPEN_WEATHER_API_KEY=____xxx____}" \
   --zip-file fileb://publish/lambda-function.zip
 
-# update lambda
+# update lambda code
 aws lambda update-function-code \
   --function-name LambdaNodeFirst \
-  --zip-file fileb://publish/lambda-function.zip \
-  --environment Variables={OPEN_WEATHER_API_KEY=`your-secret-key`}
+  --zip-file fileb://publish/lambda-function.zip
+
+# update lambda config
+aws lambda update-function-configuration \
+  --function-name LambdaNodeFirst \
+  --environment "Variables={OPEN_WEATHER_API_KEY=____xxx____}"
+
 
 
 # invoke lambda

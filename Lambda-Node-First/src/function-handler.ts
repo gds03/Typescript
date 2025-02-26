@@ -23,6 +23,6 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context): Pr
 
     return {
         statusCode: 200,
-        body: JSON.stringify({ message: weatherInCity })
+        body: JSON.stringify(weatherInCity, null, 2)
     };
 };
