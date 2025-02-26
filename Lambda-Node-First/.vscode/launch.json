@@ -5,7 +5,7 @@
       "type": "node",
       "request": "launch",
       "name": "Launch TypeScript",
-      "program": "${workspaceFolder}/dist/handler-debug.js",
+      "program": "${workspaceFolder}/dist/function-handler-debug.js",
       "preLaunchTask": "tsc: build",
       "cwd": "${workspaceFolder}",
       "outFiles": ["${workspaceFolder}/dist/**/*.js"],

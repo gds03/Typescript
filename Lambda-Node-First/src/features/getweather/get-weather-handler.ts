@@ -25,11 +25,12 @@ export class GetWeatherHandler implements IGetWeatherHandler {
   /*
     Get weather for a user, caches response for a given time (in seconds) and returns weather for the city.
   */
-  entryNeedsRefresh(updatedAt: Date, cacheSeconds: number): boolean {
+  private entryNeedsRefresh(updatedAt: Date, cacheSeconds: number): boolean {
     const elapsedSeconds = (new Date().getTime() - updatedAt.getTime()) / 1000;
     return elapsedSeconds > cacheSeconds;
   }
-  async getWeatherAsync(request: GetWeatherHandlerRequest): Promise<string> {
+
+  public async getWeatherAsync(request: GetWeatherHandlerRequest): Promise<string> {
     if (!request) {
       throw error('request missing');
     }

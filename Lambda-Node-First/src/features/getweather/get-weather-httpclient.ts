@@ -21,7 +21,7 @@ export class GetWeatherHttpClient implements IGetWeatherHttpClient {
     constructor(@inject("IConfiguration") private readonly _configuration: IConfiguration )
 {}
     
-    async getWeatherAsync(city: string): Promise<IGetWeatherHttpClientResponse> {
+    public async getWeatherAsync(city: string): Promise<IGetWeatherHttpClientResponse> {
         const response = await axios.get(BASE_URL, {
             params: {
                 q: city,

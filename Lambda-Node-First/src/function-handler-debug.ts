@@ -5,7 +5,7 @@ if(config.error)
 {
     throw config.error;
 }
-const lambda = require("./handler");
+const lambda = require("./function-handler");
 
 const payload = {
     "resource": "/",

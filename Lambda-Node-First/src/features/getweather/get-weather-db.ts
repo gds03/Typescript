@@ -16,11 +16,10 @@ export interface IGetWeatherDb {
 }
 
 export class GetWeatherDb implements IGetWeatherDb {
-    static TableName = "Lambda-Node-First-Table";
+    private static readonly TableName = "Lambda-Node-First-Table";
+    private readonly _ddbFactory = () => new DynamoDB.DocumentClient();
 
-    async getUsernameDataAsync(username: string): Promise<GetWeatherDbEntry | null> {
-        var ddb = new DynamoDB.DocumentClient();
-
+    public async getUsernameDataAsync(username: string): Promise<GetWeatherDbEntry | null> {
         const params = {
             TableName: GetWeatherDb.TableName,
             Key: { 
@@ -29,7 +28,7 @@ export class GetWeatherDb implements IGetWeatherDb {
             
         };
 
-        const response = await ddb.get(params).promise();
+        const response = await this._ddbFactory().get(params).promise();
         if(!response.Item){
             return null
         }
@@ -44,9 +43,7 @@ export class GetWeatherDb implements IGetWeatherDb {
     }
     
 
-    async saveUsernameDataAsync(request: GetWeatherDbEntry): Promise<void> {
-        var ddb = new DynamoDB.DocumentClient();
-
+    public async saveUsernameDataAsync(request: GetWeatherDbEntry): Promise<void> {
         const params = {
             TableName: GetWeatherDb.TableName,
             Item:
@@ -61,6 +58,6 @@ export class GetWeatherDb implements IGetWeatherDb {
             }
         };
        
-        await ddb.put(params).promise();       
+        await this._ddbFactory().put(params).promise();       
     }
 }
